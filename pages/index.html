@@ -1,0 +1,63 @@
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="../css/styles.css">
+    <meta charset="UTF-8">
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <title>File Distribution GUI</title>
+  </head>
+  <body>
+    <h1>File Distribution GUI</h1>
+    <p id="subtitle">This app copies files from your local system and distributes it to all computers in the selected labs.<br>
+    If you'd like to transfer folders or multiple files, please archive them first (e.g., zip, tar).</p>
+
+    <!-- Form that collects necessary data from the user -->
+    <span>
+      <!-- Which labs are being worked on -->
+      <fieldset>
+        <legend>Labs</legend>
+        <input type="checkbox" id="lab1" name="labs" value="bodeen">
+        <label for="lab1">Bodeen</label><br>
+        <input type="checkbox" id="lab2" name="labs" value="mse">
+        <label for="lab2">MSE</label><br>
+        <input type="checkbox" id="lab3" name="labs" value="chbe">
+        <label for="lab3">ChBe</label><br>
+        <input type="checkbox" id="lab4" name="labs" value="segal">
+        <label for="lab4">Segal</label><br>
+        <input type="checkbox" id="lab5" name="labs" value="mcc">
+        <label for="lab5">MCC</label><br>
+      </fieldset><br>
+
+      <!-- Local absolute path to data being transferred -->
+      <fieldset>
+        <legend>Local source path</legend>
+        Select the file to be transferred:<br>
+        <div class="button-box">
+          <button type="button" id="src-button">Select</button>
+          <p id="src-path"></p>
+        </div>
+      </fieldset><br>
+
+      <!-- Remote path to where data should be transferred -->
+      <fieldset>
+        <legend>Remote destination path</legend>
+        Select the directory to transfer to:<br>
+        <div class="button-box">
+          <button type="button" id="dst-button">Select</button>
+          <p id="dst-path"></span>
+        </div>
+      </fieldset>
+
+      <!-- Shows up if the user didn't give an entry for every field of the form -->
+      <p id="form-error-text"></p>
+
+      <!-- Submit the form -->
+      <input type="submit" id="submit" value="Continue"></input>
+    </span>
+    
+    <script src="../js/renderer.js"></script>
+  </body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "name": "electron-dtl",
+  "version": "1.0.0",
+  "description": "",
+  "main": "js/main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Alex Kang <alexkang2024@u.northwestern.edu>",
+  "devDependencies": {
+    "electron": "^22.1.0"
+  }
+}
