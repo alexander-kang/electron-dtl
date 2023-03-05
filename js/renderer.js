@@ -3,7 +3,7 @@ var dstPath
 
 // Send form data to IPC
 const ipcRenderer = require('electron').ipcRenderer
-var submit = document.getElementById('submit')
+const submit = document.getElementById('submit')
 submit.onclick = function() {
     // Stores what labs they're working on in an array of booleans
     let bodeen = document.getElementById('lab1').checked
@@ -29,6 +29,11 @@ submit.onclick = function() {
         ipcRenderer.send('formSubmission', labs, srcPath, dstPath)
     }
 }
+
+// If an error occurs during file copying
+ipcRenderer.on('copyError', function(event, err) {
+    document.getElementById('form-error-text').innerHTML = "something bad happened"
+})
 
 // Runs when the file browse button on the local source path is pressed
 // Opens the file browser by sending a command to main over IPC

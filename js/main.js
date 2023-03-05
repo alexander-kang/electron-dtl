@@ -73,8 +73,8 @@ ipcMain.on('dstOpenDialog', function(event) {
 ipcMain.on('formSubmission', function (event, formLabs, formSrcPath, formDstPath) {
     // Setting internal states
     labs = formLabs
-    srcPath = formSrcPath
-    dstPath = formDstPath
+    srcPath = formSrcPath[0]
+    dstPath = formDstPath[0]
 
     // Get the local remote destination path
     // Ex: `C:\Users\...` rather than `\\bodeen-01.mcc.northwestern.edu\C:\Users\...`
