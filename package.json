@@ -1,16 +1,24 @@
 {
   "name": "electron-dtl",
   "version": "1.0.0",
-  "description": "",
+  "description": "Electron desktop app to easily distribute files across lab machines",
   "main": "js/main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "author": "Alex Kang <alexkang2024@u.northwestern.edu>",
   "devDependencies": {
+    "@electron-forge/cli": "^6.0.5",
+    "@electron-forge/maker-deb": "^6.0.5",
+    "@electron-forge/maker-rpm": "^6.0.5",
+    "@electron-forge/maker-squirrel": "^6.0.5",
+    "@electron-forge/maker-zip": "^6.0.5",
     "electron": "^22.1.0"
   },
   "dependencies": {
+    "electron-squirrel-startup": "^1.0.0",
     "fs-extra": "^11.1.0"
   }
 }

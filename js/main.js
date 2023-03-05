@@ -5,6 +5,9 @@ const {app, BrowserWindow, dialog, ipcMain} = require('electron')
 const fse = require('fs-extra')
 const path = require('path')
 
+// Electron Forge boilerplate
+if (require('electron-squirrel-startup')) app.quit()
+
 // Was getting some bugs with hardware acceleration on and figured it wasn't worth the hassle
 app.disableHardwareAcceleration()
 
