@@ -75,59 +75,93 @@ ipcMain.on('formSubmission', function (event, formLabs, formSrcPath, formDstPath
     labs = formLabs
     srcPath = formSrcPath
     dstPath = formDstPath
+
+    // Get the local remote destination path
+    // Ex: `C:\Users\...` rather than `\\bodeen-01.mcc.northwestern.edu\C:\Users\...`
+    dstPath = dstPath.substring(dstPath.indexOf(":") - 1)
+
+    // Add the file/folder name to the end of the destination path
+    dstPath += srcPath.substring(srcPath.lastIndexOf("\\"))
     
+    // Right half of template
+    const templateRight = ".mcc.northwestern.edu\\"
     // Check if Bodeen is being worked on
     if (labs[0]) {
+        // Left half of template for Bodeen
+        const bodeenTemplateLeft = "\\\\bodeen-0"
         // Copy files to all 5 of the Bodeen systems
         for (let i = 1; i < 6; ++i) {
+            // Put everything together to get the final destination path
+            let combinedBodeenDstPath = bodeenTemplateLeft + i + templateRight + dstPath
+            // Need to catch error if any occurs and report it to user
             try {
-                fse.copySync()
+                fse.copySync(srcPath, combinedBodeenDstPath)
             } catch(err) {
-                //
+                event.sender.send('copyError', err)
             }
         }
     }
     // Check if MSE is being worked on
     if (labs[1]) {
+        // Left half of template for MSE
+        const mseTemplateLeft = "\\\\mse-0"
         // Copy files to all 7 of the MSE systems
         for (let i = 1; i < 8; ++i) {
+            // Put everything together to get the final destination path
+            let combinedMSEDstPath = mseTemplateLeft + i + templateRight + dstPath
+            // Need to catch error if any occurs and report it to user
             try {
-                fse.copySync()
+                fse.copySync(srcPath, combinedMSEDstPath)
             } catch(err) {
-                //
+                event.sender.send('copyError', err)
             }
         }
     }
     // Check if ChBe is being worked on
     if (labs[2]) {
+        // Left half of template for ChBe
+        const chbeTemplateLeft = "\\\\e1-chbe-0"
         // Copy files to all 8 of the ChBe systems
         for (let i = 1; i < 9; ++i) {
+            // Put everything together to get the final destination path
+            let combinedChBeDstPath = chbeTemplateLeft + i + templateRight + dstPath
+            // Need to catch error if any occurs and report it to user
             try {
-                fse.copySync()
+                fse.copySync(srcPath, combinedChBeDstPath)
             } catch(err) {
-                //
+                event.sender.send('copyError', err)
             }
         }
     }
     // Check if Segal is being worked on
     if (labs[3]) {
+        // Left half of template for Segal
+        const segalTemplateLeft = "\\\\e1-segal-0"
         // Copy files to all 7 of the Segal systems
         for (let i = 1; i < 8; ++i) {
+            // Put everything together to get the final destination path
+            let combinedSegalDstPath = segalTemplateLeft + i + templateRight + dstPath
+            // Need to catch error if any occurs and report it to user
             try {
-                fse.copySync()
+                fse.copySync(srcPath, combinedSegalDstPath)
             } catch(err) {
-                //
+                event.sender.send('copyError', err)
             }
         }
     }
     // Check if MCC is being worked on
     if (labs[4]) {
+        // Left half of template for Segal
+        const mccTemplateLeft = "\\\\e1-mcc-0"
         // Copy files to all 26 of the MCC systems
         for (let i = 1; i < 27; ++i) {
+            // Put everything together to get the final destination path
+            let combinedMCCDstPath = mccTemplateLeft + i + templateRight + dstPath
+            // Need to catch error if any occurs and report it to user
             try {
-                fse.copySync()
+                fse.copySync(srcPath, combinedMCCDstPath)
             } catch(err) {
-                //
+                event.sender.send('copyError', err)
             }
         }
     }
