@@ -11,7 +11,8 @@ app.disableHardwareAcceleration()
 // Internal states
 var labs // 0: Bodeen, 1: MSE, 2: ChBe, 3: Segal, 4: MCC
 var srcPath // Full absolute file path to copy from
-var dstPath // Absolute file path to copy to but doesn't have the file names in there yet
+var dstPath // Absolute file path to copy to but doesn't have final parts in there yet
+            // Ex: if you're trying to copy a file called test.txt, dstPath is missing the final \test.txt
 
 // Creates the browser window and loads index.html
 const createWindow = () => {
@@ -77,12 +78,58 @@ ipcMain.on('formSubmission', function (event, formLabs, formSrcPath, formDstPath
     
     // Check if Bodeen is being worked on
     if (labs[0]) {
-        // Copy files to all the Bodeen systems
-        // TODO!!
+        // Copy files to all 5 of the Bodeen systems
+        for (let i = 1; i < 6; ++i) {
+            try {
+                fse.copySync()
+            } catch(err) {
+                //
+            }
+        }
     }
+    // Check if MSE is being worked on
     if (labs[1]) {
-        // Copy files to all the MSE systems
-        // TODO!!
+        // Copy files to all 7 of the MSE systems
+        for (let i = 1; i < 8; ++i) {
+            try {
+                fse.copySync()
+            } catch(err) {
+                //
+            }
+        }
+    }
+    // Check if ChBe is being worked on
+    if (labs[2]) {
+        // Copy files to all 8 of the ChBe systems
+        for (let i = 1; i < 9; ++i) {
+            try {
+                fse.copySync()
+            } catch(err) {
+                //
+            }
+        }
+    }
+    // Check if Segal is being worked on
+    if (labs[3]) {
+        // Copy files to all 7 of the Segal systems
+        for (let i = 1; i < 8; ++i) {
+            try {
+                fse.copySync()
+            } catch(err) {
+                //
+            }
+        }
+    }
+    // Check if MCC is being worked on
+    if (labs[4]) {
+        // Copy files to all 26 of the MCC systems
+        for (let i = 1; i < 27; ++i) {
+            try {
+                fse.copySync()
+            } catch(err) {
+                //
+            }
+        }
     }
 })
 
