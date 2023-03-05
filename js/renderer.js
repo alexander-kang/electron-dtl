@@ -42,6 +42,14 @@ srcButtonFile.addEventListener('click', function(event) {
     ipcRenderer.send('srcOpenDialogFile')
 })
 ipcRenderer.on('srcSelectedFile', function(event, path) {
+    document.getElementById('src-file-box').innerHTML =
+    `<div id="src-file-box">
+        Select the file to be transferred:<br>
+        <div class="button-box">
+            <button type="button" id="src-button-file">Select</button>
+            <p id="src-path-file"></p>
+        </div>
+    </div>`
     document.getElementById('src-path-file').innerHTML = path
     document.getElementById('src-folder-box').innerHTML = ""
     srcPath = path
@@ -66,6 +74,6 @@ dstButton.addEventListener('click', function(event) {
     ipcRenderer.send('dstOpenDialog')
 })
 ipcRenderer.on('dstSelected', function(event, path) {
-    document.getElementById('dst-path').innerHTML = path
+    document.getElementById('dst-path').innerHTML = path[0].substring(path[0].indexOf(":") - 1)
     dstPath = path
 })
