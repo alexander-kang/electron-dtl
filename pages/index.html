@@ -11,8 +11,9 @@
   </head>
   <body>
     <h1>File Distribution GUI</h1>
-    <p id="subtitle">This app copies files from your local system and distributes it to all computers in the selected labs.<br>
-    If you'd like to transfer folders or multiple files, please archive them first (e.g., zip, tar).</p>
+    <p id="subtitle">This app copies files/folders from your local system and distributes it to all computers in the selected labs.<br>
+    Note: Please use only one of the local source path buttons. To transfer a single file, use the first button.<br>
+    To transfer a folder and all its contents, use the second button.</p>
 
     <!-- Form that collects necessary data from the user -->
     <span>
@@ -34,11 +35,20 @@
       <!-- Local absolute path to data being transferred -->
       <fieldset>
         <legend>Local source path</legend>
-        Select the file to be transferred:<br>
-        <div class="button-box">
-          <button type="button" id="src-button">Select</button>
-          <p id="src-path"></p>
+        <div id="src-file-box">
+          Select the file to be transferred:<br>
+          <div class="button-box">
+            <button type="button" id="src-button-file">Select</button>
+            <p id="src-path-file"></p>
+          </div><br>
         </div>
+        <div id="src-folder-box">
+          Select the folder to be transferred:<br>
+          <div class="button-box">
+            <button type="button" id="src-button-folder">Select</button>
+            <p id="src-path-folder"></p>
+          </div>
+      </div>
       </fieldset><br>
 
       <!-- Remote path to where data should be transferred -->

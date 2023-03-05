@@ -14,21 +14,11 @@ h1 {
     align-items: center;
 }
 
-#src-button {
+.button-box button {
     margin-top: 1%;
 }
 
-#dst-button {
-    margin-top: 1%;
-}
-
-#src-path {
-    padding-left: 1%;
-    margin-top: 1%;
-    margin-bottom: 0;
-}
-
-#dst-path {
+.button-box p {
     padding-left: 1%;
     margin-top: 1%;
     margin-bottom: 0;

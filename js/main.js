@@ -2,11 +2,16 @@
 
 // Modules to control application life and create native browser window
 const {app, BrowserWindow, dialog, ipcMain} = require('electron')
+const fse = require('fs-extra')
 const path = require('path')
 
+// Was getting some bugs with hardware acceleration on and figured it wasn't worth the hassle
 app.disableHardwareAcceleration()
 
-var labs
+// Internal states
+var labs // 0: Bodeen, 1: MSE, 2: ChBe, 3: Segal, 4: MCC
+var srcPath // Full absolute file path to copy from
+var dstPath // Absolute file path to copy to but doesn't have the file names in there yet
 
 // Creates the browser window and loads index.html
 const createWindow = () => {
@@ -32,13 +37,23 @@ const createWindow = () => {
     win.loadFile('pages/index.html')
 }
 
-// Catch src command from renderer via IPC, open corresponding dialog, and send data back
-ipcMain.on('srcOpenDialog', function(event) {
+// Catch src file command from renderer via IPC, open corresponding dialog, and send data back
+ipcMain.on('srcOpenDialogFile', function(event) {
     const dialogRet = dialog.showOpenDialogSync({
         properties: ['openFile']
     })
     if (dialogRet) {
-        event.sender.send('srcSelected', dialogRet)
+        event.sender.send('srcSelectedFile', dialogRet)
+    }
+})
+
+// Catch src folder command from renderer via IPC, open corresponding dialog, and send data back
+ipcMain.on('srcOpenDialogFolder', function(event) {
+    const dialogRet = dialog.showOpenDialogSync({
+        properties: ['openDirectory']
+    })
+    if (dialogRet) {
+        event.sender.send('srcSelectedFolder', dialogRet)
     }
 })
 
@@ -53,8 +68,22 @@ ipcMain.on('dstOpenDialog', function(event) {
 })
 
 // Catching form submission data from renderer via IPC and storing it in internal states
-ipcMain.on('formSubmission', function (event, formLabs) {
+// Then, perform the necessary file copies
+ipcMain.on('formSubmission', function (event, formLabs, formSrcPath, formDstPath) {
+    // Setting internal states
     labs = formLabs
+    srcPath = formSrcPath
+    dstPath = formDstPath
+    
+    // Check if Bodeen is being worked on
+    if (labs[0]) {
+        // Copy files to all the Bodeen systems
+        // TODO!!
+    }
+    if (labs[1]) {
+        // Copy files to all the MSE systems
+        // TODO!!
+    }
 })
 
 // After Electron initialized and is ready, create the browser window

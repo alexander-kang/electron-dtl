@@ -9,5 +9,8 @@
   "author": "Alex Kang <alexkang2024@u.northwestern.edu>",
   "devDependencies": {
     "electron": "^22.1.0"
+  },
+  "dependencies": {
+    "fs-extra": "^11.1.0"
   }
 }

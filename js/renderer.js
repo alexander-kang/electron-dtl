@@ -1,3 +1,6 @@
+var srcPath
+var dstPath
+
 // Send form data to IPC
 const ipcRenderer = require('electron').ipcRenderer
 var submit = document.getElementById('submit')
@@ -17,25 +20,38 @@ submit.onclick = function() {
             labsInputEmpty = false
         }
     }
-    if (labsInputEmpty) {
+    if (labsInputEmpty || !srcPath || !dstPath) {
         document.getElementById('form-error-text').innerHTML = "You must respond to every field of this form!"
     }
-    // If everything looks fine, send the form off to IPC
+    // If everything looks fine, send the form off to IPC 
     else {
         document.getElementById('form-error-text').innerHTML = ""
-        ipcRenderer.send('formSubmission', labs)
+        ipcRenderer.send('formSubmission', labs, srcPath, dstPath)
     }
 }
 
-// Runs when the browse button on the local source path is pressed
+// Runs when the file browse button on the local source path is pressed
 // Opens the file browser by sending a command to main over IPC
-const srcButton = document.getElementById('src-button')
-srcButton.addEventListener('click', function(event) {
-    ipcRenderer.send('srcOpenDialog')
+const srcButtonFile = document.getElementById('src-button-file')
+srcButtonFile.addEventListener('click', function(event) {
+    ipcRenderer.send('srcOpenDialogFile')
 })
-ipcRenderer.on('srcSelected', function(event, path) {
-    console.log(path)
-    document.getElementById('src-path').innerHTML = path
+ipcRenderer.on('srcSelectedFile', function(event, path) {
+    document.getElementById('src-path-file').innerHTML = path
+    document.getElementById('src-folder-box').innerHTML = ""
+    srcPath = path
+})
+
+// Runs when the folder browse button on the local source path is pressed
+// Opens the file browser by sending a command to main over IPC
+const srcButtonFolder = document.getElementById('src-button-folder')
+srcButtonFolder.addEventListener('click', function(event) {
+    ipcRenderer.send('srcOpenDialogFolder')
+})
+ipcRenderer.on('srcSelectedFolder', function(event, path) {
+    document.getElementById('src-path-folder').innerHTML = path
+    document.getElementById('src-file-box').innerHTML = ""
+    srcPath = path
 })
 
 // Runs when the browse button on the remote destination path is pressed
@@ -45,6 +61,6 @@ dstButton.addEventListener('click', function(event) {
     ipcRenderer.send('dstOpenDialog')
 })
 ipcRenderer.on('dstSelected', function(event, path) {
-    console.log(path)
     document.getElementById('dst-path').innerHTML = path
+    dstPath = path
 })
