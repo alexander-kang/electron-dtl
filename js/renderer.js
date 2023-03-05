@@ -1,5 +1,8 @@
-var srcPath
-var dstPath
+// renderer.js
+
+// Global variables
+var srcPath // File path to copy from
+var dstPath // File path to copy to
 
 // Send form data to IPC
 const ipcRenderer = require('electron').ipcRenderer
@@ -29,11 +32,6 @@ submit.onclick = function() {
         ipcRenderer.send('formSubmission', labs, srcPath, dstPath)
     }
 }
-
-// If an error occurs during file copying
-ipcRenderer.on('copyError', function(event, err) {
-    document.getElementById('form-error-text').innerHTML = "something bad happened"
-})
 
 // Runs when the file browse button on the local source path is pressed
 // Opens the file browser by sending a command to main over IPC

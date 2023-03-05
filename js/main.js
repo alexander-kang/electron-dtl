@@ -9,14 +9,14 @@ const path = require('path')
 app.disableHardwareAcceleration()
 
 // Internal states
+var win
 var labs // 0: Bodeen, 1: MSE, 2: ChBe, 3: Segal, 4: MCC
-var srcPath // Full absolute file path to copy from
-var dstPath // Absolute file path to copy to but doesn't have final parts in there yet
-            // Ex: if you're trying to copy a file called test.txt, dstPath is missing the final \test.txt
+var srcPath // File path to copy from
+var dstPath // File path to copy to
 
 // Creates the browser window and loads index.html
 const createWindow = () => {
-    const win = new BrowserWindow({
+    win = new BrowserWindow({
         // Sets icon of window
         icon: 'nu.jpeg',
         // Hide the menu bar from the window
@@ -25,12 +25,11 @@ const createWindow = () => {
         resizable: false,
         // Dimensions of window
         width: 800,
-        height: 700,
+        height: 680,
         // Preload from preload.js
         webPreferences: {
             nodeIntegration: true,
-            contextIsolation: false,
-            preload: path.join(__dirname, 'preload.js')
+            contextIsolation: false
         }
     })
 
@@ -83,11 +82,14 @@ ipcMain.on('formSubmission', function (event, formLabs, formSrcPath, formDstPath
     // Add the file/folder name to the end of the destination path
     dstPath += srcPath.substring(srcPath.lastIndexOf("\\"))
 
-    // testing code:
+    // Local variable that lets us know if we successfully transferred the files
+    let failure = false
+
+    // Testing code:
     try {
         fse.copySync(srcPath, dstPath)
     } catch(err) {
-        console.log(err)
+        failure = true
     }
     
     // // Right half of template
@@ -104,7 +106,7 @@ ipcMain.on('formSubmission', function (event, formLabs, formSrcPath, formDstPath
     //         try {
     //             fse.copySync(srcPath, combinedBodeenDstPath)
     //         } catch(err) {
-    //             event.sender.send('copyError', err)
+    //             failure = true
     //         }
     //     }
     // }
@@ -120,7 +122,7 @@ ipcMain.on('formSubmission', function (event, formLabs, formSrcPath, formDstPath
     //         try {
     //             fse.copySync(srcPath, combinedMSEDstPath)
     //         } catch(err) {
-    //             event.sender.send('copyError', err)
+    //             failure = true
     //         }
     //     }
     // }
@@ -136,7 +138,7 @@ ipcMain.on('formSubmission', function (event, formLabs, formSrcPath, formDstPath
     //         try {
     //             fse.copySync(srcPath, combinedChBeDstPath)
     //         } catch(err) {
-    //             event.sender.send('copyError', err)
+    //             failure = true
     //         }
     //     }
     // }
@@ -152,7 +154,7 @@ ipcMain.on('formSubmission', function (event, formLabs, formSrcPath, formDstPath
     //         try {
     //             fse.copySync(srcPath, combinedSegalDstPath)
     //         } catch(err) {
-    //             event.sender.send('copyError', err)
+    //             failure = true
     //         }
     //     }
     // }
@@ -168,10 +170,17 @@ ipcMain.on('formSubmission', function (event, formLabs, formSrcPath, formDstPath
     //         try {
     //             fse.copySync(srcPath, combinedMCCDstPath)
     //         } catch(err) {
-    //             event.sender.send('copyError', err)
+    //             failure = true
     //         }
     //     }
     // }
+
+    // Load the corresponding result page
+    if (failure) {
+        win.loadFile('pages/failure.html')
+    } else {
+        win.loadFile('pages/success.html')
+    }
 })
 
 // After Electron initialized and is ready, create the browser window
