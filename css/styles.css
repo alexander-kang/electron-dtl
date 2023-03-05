@@ -48,6 +48,7 @@ h1 {
 
 #failure {
     text-align: center;
+    line-height: 150%;
 }
 
 #success-close-button {
