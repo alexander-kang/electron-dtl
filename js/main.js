@@ -85,95 +85,95 @@ ipcMain.on('formSubmission', function (event, formLabs, formSrcPath, formDstPath
     // Local variable that lets us know if we successfully transferred the files
     let failure = false
 
-    // Testing code:
-    try {
-        fse.copySync(srcPath, dstPath)
-    } catch(err) {
-        failure = true
-    }
+    // // Testing code:
+    // try {
+    //     fse.copySync(srcPath, dstPath)
+    // } catch(err) {
+    //     failure = true
+    // }
     
-    // // Right half of template
-    // const templateRight = ".mcc.northwestern.edu\\"
-    // // Check if Bodeen is being worked on
-    // if (labs[0]) {
-    //     // Left half of template for Bodeen
-    //     const bodeenTemplateLeft = "\\\\bodeen-0"
-    //     // Copy files to all 5 of the Bodeen systems
-    //     for (let i = 1; i < 6; ++i) {
-    //         // Put everything together to get the final destination path
-    //         let combinedBodeenDstPath = bodeenTemplateLeft + i + templateRight + dstPath
-    //         // Need to catch error if any occurs and report it to user
-    //         try {
-    //             fse.copySync(srcPath, combinedBodeenDstPath)
-    //         } catch(err) {
-    //             failure = true
-    //         }
-    //     }
-    // }
-    // // Check if MSE is being worked on
-    // if (labs[1]) {
-    //     // Left half of template for MSE
-    //     const mseTemplateLeft = "\\\\mse-0"
-    //     // Copy files to all 7 of the MSE systems
-    //     for (let i = 1; i < 8; ++i) {
-    //         // Put everything together to get the final destination path
-    //         let combinedMSEDstPath = mseTemplateLeft + i + templateRight + dstPath
-    //         // Need to catch error if any occurs and report it to user
-    //         try {
-    //             fse.copySync(srcPath, combinedMSEDstPath)
-    //         } catch(err) {
-    //             failure = true
-    //         }
-    //     }
-    // }
-    // // Check if ChBe is being worked on
-    // if (labs[2]) {
-    //     // Left half of template for ChBe
-    //     const chbeTemplateLeft = "\\\\e1-chbe-0"
-    //     // Copy files to all 8 of the ChBe systems
-    //     for (let i = 1; i < 9; ++i) {
-    //         // Put everything together to get the final destination path
-    //         let combinedChBeDstPath = chbeTemplateLeft + i + templateRight + dstPath
-    //         // Need to catch error if any occurs and report it to user
-    //         try {
-    //             fse.copySync(srcPath, combinedChBeDstPath)
-    //         } catch(err) {
-    //             failure = true
-    //         }
-    //     }
-    // }
-    // // Check if Segal is being worked on
-    // if (labs[3]) {
-    //     // Left half of template for Segal
-    //     const segalTemplateLeft = "\\\\e1-segal-0"
-    //     // Copy files to all 7 of the Segal systems
-    //     for (let i = 1; i < 8; ++i) {
-    //         // Put everything together to get the final destination path
-    //         let combinedSegalDstPath = segalTemplateLeft + i + templateRight + dstPath
-    //         // Need to catch error if any occurs and report it to user
-    //         try {
-    //             fse.copySync(srcPath, combinedSegalDstPath)
-    //         } catch(err) {
-    //             failure = true
-    //         }
-    //     }
-    // }
-    // // Check if MCC is being worked on
-    // if (labs[4]) {
-    //     // Left half of template for Segal
-    //     const mccTemplateLeft = "\\\\e1-mcc-0"
-    //     // Copy files to all 26 of the MCC systems
-    //     for (let i = 1; i < 27; ++i) {
-    //         // Put everything together to get the final destination path
-    //         let combinedMCCDstPath = mccTemplateLeft + i + templateRight + dstPath
-    //         // Need to catch error if any occurs and report it to user
-    //         try {
-    //             fse.copySync(srcPath, combinedMCCDstPath)
-    //         } catch(err) {
-    //             failure = true
-    //         }
-    //     }
-    // }
+    // Right half of template
+    const templateRight = ".mcc.northwestern.edu\\"
+    // Check if Bodeen is being worked on
+    if (labs[0]) {
+        // Left half of template for Bodeen
+        const bodeenTemplateLeft = "\\\\bodeen-0"
+        // Copy files to all 5 of the Bodeen systems
+        for (let i = 1; i < 6; ++i) {
+            // Put everything together to get the final destination path
+            let combinedBodeenDstPath = bodeenTemplateLeft + i + templateRight + dstPath
+            // Need to catch error if any occurs and report it to user
+            try {
+                fse.copySync(srcPath, combinedBodeenDstPath)
+            } catch(err) {
+                failure = true
+            }
+        }
+    }
+    // Check if MSE is being worked on
+    if (labs[1]) {
+        // Left half of template for MSE
+        const mseTemplateLeft = "\\\\mse-0"
+        // Copy files to all 7 of the MSE systems
+        for (let i = 1; i < 8; ++i) {
+            // Put everything together to get the final destination path
+            let combinedMSEDstPath = mseTemplateLeft + i + templateRight + dstPath
+            // Need to catch error if any occurs and report it to user
+            try {
+                fse.copySync(srcPath, combinedMSEDstPath)
+            } catch(err) {
+                failure = true
+            }
+        }
+    }
+    // Check if ChBe is being worked on
+    if (labs[2]) {
+        // Left half of template for ChBe
+        const chbeTemplateLeft = "\\\\e1-chbe-0"
+        // Copy files to all 8 of the ChBe systems
+        for (let i = 1; i < 9; ++i) {
+            // Put everything together to get the final destination path
+            let combinedChBeDstPath = chbeTemplateLeft + i + templateRight + dstPath
+            // Need to catch error if any occurs and report it to user
+            try {
+                fse.copySync(srcPath, combinedChBeDstPath)
+            } catch(err) {
+                failure = true
+            }
+        }
+    }
+    // Check if Segal is being worked on
+    if (labs[3]) {
+        // Left half of template for Segal
+        const segalTemplateLeft = "\\\\e1-segal-0"
+        // Copy files to all 7 of the Segal systems
+        for (let i = 1; i < 8; ++i) {
+            // Put everything together to get the final destination path
+            let combinedSegalDstPath = segalTemplateLeft + i + templateRight + dstPath
+            // Need to catch error if any occurs and report it to user
+            try {
+                fse.copySync(srcPath, combinedSegalDstPath)
+            } catch(err) {
+                failure = true
+            }
+        }
+    }
+    // Check if MCC is being worked on
+    if (labs[4]) {
+        // Left half of template for Segal
+        const mccTemplateLeft = "\\\\e1-mcc-0"
+        // Copy files to all 26 of the MCC systems
+        for (let i = 1; i < 27; ++i) {
+            // Put everything together to get the final destination path
+            let combinedMCCDstPath = mccTemplateLeft + i + templateRight + dstPath
+            // Need to catch error if any occurs and report it to user
+            try {
+                fse.copySync(srcPath, combinedMCCDstPath)
+            } catch(err) {
+                failure = true
+            }
+        }
+    }
 
     // Load the corresponding result page
     if (failure) {
