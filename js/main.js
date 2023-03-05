@@ -21,7 +21,7 @@ var dstPath // File path to copy to
 const createWindow = () => {
     win = new BrowserWindow({
         // Sets icon of window
-        icon: 'nu.jpeg',
+        icon: 'nu.ico',
         // Hide the menu bar from the window
         autoHideMenuBar: true,
         // Make the window non-resizable
@@ -29,7 +29,7 @@ const createWindow = () => {
         // Dimensions of window
         width: 800,
         height: 680,
-        // Preload from preload.js
+        // Give renderer access to node
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false
