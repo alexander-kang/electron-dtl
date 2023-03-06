@@ -79,14 +79,15 @@ ipcMain.on('formSubmission', function (event, formLabs, formSrcPath, formDstPath
     dstPath = formDstPath[0]
 
     // Get the local remote destination path
-    // Ex: `C:\Users\...` rather than `\\bodeen-01.mcc.northwestern.edu\C:\Users\...`
-    dstPath = dstPath.substring(dstPath.indexOf(":") - 1)
+    // Ex: `C:\Users\...` rather than `\\bodeen-01.mcc.northwestern.edu\c$\Users\...`
+    dstPath = dstPath.substring(dstPath.indexOf("$") - 1)
 
     // Add the file/folder name to the end of the destination path
     dstPath += srcPath.substring(srcPath.lastIndexOf("\\"))
 
     // Local variable that lets us know if we successfully transferred the files
     let failure = false
+    let error
 
     // // Testing code:
     // try {
@@ -108,8 +109,11 @@ ipcMain.on('formSubmission', function (event, formLabs, formSrcPath, formDstPath
             // Need to catch error if any occurs and report it to user
             try {
                 fse.copySync(srcPath, combinedBodeenDstPath)
+                failure = false
             } catch(err) {
+                console.log(combinedBodeenDstPath)
                 failure = true
+                error = err
             }
         }
     }
@@ -126,6 +130,8 @@ ipcMain.on('formSubmission', function (event, formLabs, formSrcPath, formDstPath
                 fse.copySync(srcPath, combinedMSEDstPath)
             } catch(err) {
                 failure = true
+                error = err
+
             }
         }
     }
@@ -142,6 +148,8 @@ ipcMain.on('formSubmission', function (event, formLabs, formSrcPath, formDstPath
                 fse.copySync(srcPath, combinedChBeDstPath)
             } catch(err) {
                 failure = true
+                error = err
+
             }
         }
     }
@@ -158,6 +166,8 @@ ipcMain.on('formSubmission', function (event, formLabs, formSrcPath, formDstPath
                 fse.copySync(srcPath, combinedSegalDstPath)
             } catch(err) {
                 failure = true
+                error = err
+
             }
         }
     }
@@ -174,12 +184,15 @@ ipcMain.on('formSubmission', function (event, formLabs, formSrcPath, formDstPath
                 fse.copySync(srcPath, combinedMCCDstPath)
             } catch(err) {
                 failure = true
+                error = err
+
             }
         }
     }
 
     // Load the corresponding result page
     if (failure) {
+        console.log(error)
         win.loadFile('pages/failure.html')
     } else {
         win.loadFile('pages/success.html')

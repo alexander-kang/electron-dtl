@@ -72,6 +72,6 @@ dstButton.addEventListener('click', function(event) {
     ipcRenderer.send('dstOpenDialog')
 })
 ipcRenderer.on('dstSelected', function(event, path) {
-    document.getElementById('dst-path').innerHTML = path[0].substring(path[0].indexOf(":") - 1)
+    document.getElementById('dst-path').innerHTML = path[0].substring(path[0].indexOf("$") - 1)
     dstPath = path
 })
